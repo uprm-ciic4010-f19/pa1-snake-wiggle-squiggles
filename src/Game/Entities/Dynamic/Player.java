@@ -48,6 +48,11 @@ public class Player {
         }if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)){
             direction="Right";
         }
+        //added key
+        if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
+        
+        	handler.getWorld().body.addFirst(new Tail(xCoord, yCoord,handler));
+        }
 
     }
 
