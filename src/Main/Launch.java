@@ -8,7 +8,8 @@ package Main;
 public class Launch {
 
     public static void main(String[] args) {
-        GameSetUp game = new GameSetUp("Snake", 800, 800);
+    	//changed from 800 to 1200 to fix bug
+        GameSetUp game = new GameSetUp("Snake", 1200 , 1200);
         game.start();
     }
 }
