@@ -51,7 +51,7 @@ public class Player {
         //added key
         if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
         
-        	handler.getWorld().body.addFirst(new Tail(xCoord, yCoord,handler));
+        	handler.getWorld().body.addLast(new Tail(xCoord, yCoord,handler));
         }
 
     }
