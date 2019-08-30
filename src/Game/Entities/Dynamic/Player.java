@@ -35,7 +35,7 @@ public class Player {
 
 	public void tick(){
 		moveCounter++;
-		if(moveCounter>=10) {//Orig.speed 5
+		if(moveCounter>=4) {//Orig.speed 5
 			checkCollisionAndMove();
 			moveCounter=0;
 		}
@@ -100,16 +100,7 @@ public class Player {
 
 	}
 
-	//Color Randomizer
-	/*public class rndColor{
-  		Random rand = new Random();
-  		float r = rand.nextFloat();
-  		float g = rand.nextFloat();
-  		float b = rand.nextFloat();
-
-  		Color randomColor = new Color(r, g, b);
-
-  	}*/
+	
 
 	public void render(Graphics g,Boolean[][] playeLocation){
 
@@ -122,15 +113,15 @@ public class Player {
 		Random r = new Random();
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-				g.setColor(Color.green);
+				g.setColor(Color.green);//changes the color of the segments of the snake to color green
+				//g.setColor(randomcolor); ////changes the color of the segments of the snake(multicolored/rainbow)
 
 				if(playeLocation[i][j]||handler.getWorld().appleLocation[i][j]){
 					g.fillRect((i*handler.getWorld().GridPixelsize),
 							(j*handler.getWorld().GridPixelsize),
 							handler.getWorld().GridPixelsize,
 							handler.getWorld().GridPixelsize);
-					//g.setColor(Color.GREEN);//changes the color of the segments of the snake to color green
-					//g.setColor(randomcolor);//changes the color of the segments of the snake(multicolored/rainbow)
+					
 				}
 
 			}
