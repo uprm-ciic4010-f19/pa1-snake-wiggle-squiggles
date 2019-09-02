@@ -19,6 +19,9 @@ public class Player {
 	public int yCoord;
 
 	public int moveCounter;
+	
+	//initializing speed variable 
+	public int speed;
 
 	public String direction;//is your first name one?
 
@@ -30,13 +33,16 @@ public class Player {
 		direction= "Right";
 		justAte = false;
 		lenght= 1;
+		
+		//Variable that will control the speed of the snake
+		speed = 4;
 
 	}
 
 
 	public void tick(){
 		moveCounter++;
-		if(moveCounter>=4) {//changed speed to 4
+		if(moveCounter>=speed) {//changed speed to 4
 			checkCollisionAndMove();
 			moveCounter=0;
 		}
@@ -54,6 +60,19 @@ public class Player {
 
 			handler.getWorld().body.addLast(new Tail(xCoord, yCoord,handler));
 		}
+		
+		// Implementing input '+'and '-'speed variations
+			if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_MINUS)) {
+				checkCollisionAndMove();
+				speed++;
+				
+			}
+			if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_EQUALS)) {
+				checkCollisionAndMove();
+				speed--;
+				
+				}
+			
 	}	
 
 	public void checkCollisionAndMove(){
