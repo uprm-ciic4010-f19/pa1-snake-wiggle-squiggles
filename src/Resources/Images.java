@@ -18,6 +18,18 @@ public class Images {
     public static BufferedImage[] BTitle;
     public static BufferedImage[] Options;
     public static ImageIcon icon;
+    
+    //Added buttons
+public static BufferedImage[] BMenu; 
+public static BufferedImage[] BMenuP;
+public static BufferedImage[] BStart;
+public static BufferedImage[] BStartP;
+public static BufferedImage[] BRestart;
+public static BufferedImage[] BRestartP;
+public static BufferedImage[] BExit;
+public static BufferedImage[] BExitP;
+public static BufferedImage[] BResume;
+public static BufferedImage[] BResumeP;
 
     public Images() {
 
@@ -25,6 +37,14 @@ public class Images {
         Resume = new BufferedImage[2];
         BTitle = new BufferedImage[2];
         Options = new BufferedImage[2];
+        
+        //Added Buttons
+        BMenu = new BufferedImage[2];
+        BStart = new BufferedImage[2];
+        BRestart = new BufferedImage[2];
+        BExit = new BufferedImage[2];
+        BResume = new BufferedImage[2];
+        
 
         try {
 
@@ -41,8 +61,22 @@ public class Images {
             butstart[2]= ImageIO.read(getClass().getResourceAsStream("/Buttons/ClickedBut.png"));//clickbut
 
             icon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/icon.png")));
+//Added Buttons 
+            BMenu[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BMenu.png"));
+            BMenu[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BMenuP.png"));
+            
+            BStart[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BStart.png"));
+            BStart[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BStartP.png"));
 
-
+            BRestart[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BRestart.png"));
+            BRestart[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BRestartP.png"));
+            
+            BExit[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BExit.png"));
+            BExit[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BExitP.png"));
+            
+            BResume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BResume.png"));
+            BResume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BResumeP.png"));
+            
         }catch (IOException e) {
         e.printStackTrace();
     }
