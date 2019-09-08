@@ -19,6 +19,9 @@ public class Player {
 
 	public int xCoord;
 	public int yCoord;
+	
+	public double rawScore = 0.0;
+	public int playerScore = 0;
 
 	public int moveCounter;
 
@@ -173,6 +176,9 @@ public class Player {
 	}
 
 	public void Eat(){
+		
+		rawScore = Math.floor(Math.sqrt((2*playerScore) + 1));
+		playerScore = playerScore + (int)rawScore;
 		lenght++;
 		Tail tail= null;
 		handler.getWorld().appleLocation[xCoord][yCoord]=false;

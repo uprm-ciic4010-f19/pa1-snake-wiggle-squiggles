@@ -59,8 +59,10 @@ public abstract class WorldBase {
 //		g.setColor(Color.white);
 //		g.drawLine(0, i, handler.getWidth() , i);
 //		g.drawLine(i,0,i,handler.getHeight());
-			
-
+		String score = "Score:" + handler.getWorld().player.playerScore;
+		g.setFont(new Font("Courier",Font.ITALIC, 45));	
+		g.setColor(Color.PINK);
+		g.drawString(score, 20, 30);
 		}
 
 
