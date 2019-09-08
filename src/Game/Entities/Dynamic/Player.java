@@ -48,7 +48,7 @@ public class Player {
 			checkCollisionAndMove();
 			moveCounter=0;
 		}
-		//backtrracking hint 
+		//backtracking hint 
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)){// it has to go down so it doesnt go back into himself 
 			direction="Up";
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)){
@@ -124,12 +124,20 @@ public class Player {
 			Eat();
 		}
 
-		if(!handler.getWorld().body.isEmpty()) {
+		if(!handler.getWorld().body.isEmpty()) {	
 			handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
 			handler.getWorld().body.removeLast();
 			handler.getWorld().body.addFirst(new Tail(x, y,handler));
+			//State.setState(handler.getGame().gameoverState);//when the snake collides with it self it will appear the Game Over State
+		
 		}
-
+		//Collision Checker
+		for(int i =1; i < handler.getWorld().body.size(); i++) {
+			if(handler.getWorld().body.get(0).x == handler.getWorld().body.get(i).x
+					&& handler.getWorld().body.get(0).y == handler.getWorld().body.get(i).y) {
+				kill();
+			}
+		}
 	}
 
 
@@ -274,13 +282,14 @@ public class Player {
 
 	public void kill(){
 		lenght = 0;
-		//State.setState(handler.getGame().GameOverState);//when the snake collides with it self it will appear the Game Over State
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
 
-				handler.getWorld().playerLocation[i][j]=false;
-
+				handler.getWorld().playerLocation[i][j]= false;
+				
 			}
+			State.setState(handler.getGame().gameoverState);//when the snake collides with it self it will appear the Game Over State
+			
 		}
 		
 	}

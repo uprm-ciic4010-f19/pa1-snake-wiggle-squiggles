@@ -22,14 +22,20 @@ public class MenuState extends State {
         handler.getMouseManager().setUimanager(uiManager);
 
 
-        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-64, handler.getHeight()/2-32, 128, 64, Images.butstart, new ClickListlener() {
+        uiManager.addObjects(new UIImageButton(handler.getWidth()/2-64, handler.getHeight()/2-32, 200, 100, Images.BStart, new ClickListlener() {
             @Override
-            public void onClick() {
+            public void onClick() { //click-on images  and do something code it also changes the images when the cursor is on top 
                 handler.getMouseManager().setUimanager(null);
-                handler.getGame().reStart();
-                State.setState(handler.getGame().gameState);
+                handler.getGame().reStart(); //restarts game
+                State.setState(handler.getGame().gameState);//Change gameState to get another type of state 
             }
+            
         }));
+        
+        uiManager.addObjects(new UIImageButton(536, 700, 200, 100, Images.BExit, () -> {
+			handler.getMouseManager().setUimanager(null);
+			System.exit(0);
+		}));
     }
 
     @Override
