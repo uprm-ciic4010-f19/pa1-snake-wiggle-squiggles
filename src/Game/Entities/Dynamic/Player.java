@@ -40,7 +40,7 @@ public class Player {
 		lenght= 1;
 
 		//Variable that will control the speed of the snake
-		speed = 4;
+		speed = 10;
 
 	}
 
@@ -176,7 +176,7 @@ public class Player {
 	}
 
 	public void Eat(){
-		
+		speed = speed - 5;
 		rawScore = Math.floor(Math.sqrt((2*playerScore) + 1));
 		playerScore = playerScore + (int)rawScore;
 		lenght++;
