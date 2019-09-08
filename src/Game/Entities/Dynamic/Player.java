@@ -49,13 +49,13 @@ public class Player {
 			moveCounter=0;
 		}
 		//backtracking hint 
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)){// it has to go down so it doesnt go back into himself 
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)&& direction!= "Down"){// it has to go down so it doesnt go back into himself 
 			direction="Up";
-		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)){
+		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)&& direction!= "Up"){
 			direction="Down";
-		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)){
+		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_LEFT)&& direction!= "Right"){
 			direction="Left";
-		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)){
+		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)&& direction!= "Left"){
 			direction="Right";
 		}
 		//added key
