@@ -85,11 +85,12 @@ public class GameSetUp implements Runnable {
 		pauseState = new PauseState(handler);
 		gameoverState = new GameOverState(handler);
 
+
 		State.setState(menuState);
 
 		try {
-
-			audioFile = getClass().getResourceAsStream("/music/nature.wav");
+			//changed the game music from nature.wav to whatsupNonBlondes.wav
+			audioFile = getClass().getResourceAsStream("/music/whatsupNonBlondes.wav");
 			audioStream = AudioSystem.getAudioInputStream(audioFile);
 			format = audioStream.getFormat();
 			info = new DataLine.Info(Clip.class, format);

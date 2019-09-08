@@ -21,18 +21,18 @@ public class GameOverState extends State {
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUimanager(uiManager);
 
-		uiManager.addObjects(new UIImageButton(500, 650, 200, 100, Images.BRestart, () -> {
+		uiManager.addObjects(new UIImageButton(850, 800, 200, 100, Images.BRestart, () -> {
 			handler.getMouseManager().setUimanager(null);
 			handler.getGame().reStart();
 			State.setState(handler.getGame().gameState);
 		}));
 
-		uiManager.addObjects(new UIImageButton(500, 650+(64+20), 200, 100, Images.BMenu, () -> {
+		uiManager.addObjects(new UIImageButton(850, 800+(64+20), 200, 100, Images.BMenu, () -> {
 			handler.getMouseManager().setUimanager(null);
 			State.setState(handler.getGame().menuState);
 		}));
 
-		uiManager.addObjects(new UIImageButton(500, (650+(64+20))+(64+20), 200, 100, Images.BExit, () -> {
+		uiManager.addObjects(new UIImageButton(850, (800+(64+20))+(64+20), 200, 100, Images.BExit, () -> {
 			handler.getMouseManager().setUimanager(null);
 			System.exit(0);
 		}));
@@ -59,7 +59,7 @@ public class GameOverState extends State {
 	@Override
 	public void render(Graphics g) {
 		g.fillRect(0,0,handler.getWidth(),handler.getHeight());
-		g.drawImage(Images.Pause,0,0,handler.getWidth(),handler.getHeight(),null);
+		g.drawImage(Images.GameOver,0,0,handler.getWidth(),handler.getHeight(),null);
 		uiManager.Render(g);
 	}
 }
