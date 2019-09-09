@@ -131,7 +131,7 @@ public class Player {
 			handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
 			handler.getWorld().body.removeLast();
 			handler.getWorld().body.addFirst(new Tail(x, y,handler));
-			//State.setState(handler.getGame().gameoverState);//when the snake collides with it self it will appear the Game Over State
+			
 		
 		}
 		//Collision Checker
@@ -156,18 +156,23 @@ public class Player {
 		Random r = new Random();
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-				//g.setColor(Color.green);//changes the color of the segments of the snake to color green
-				g.setColor(randomcolor); ////changes the color of the segments of the snake(multicolored/rainbow)
-
-				if(playeLocation[i][j]||handler.getWorld().appleLocation[i][j]){
+			
+				if(playeLocation[i][j]){
+					g.setColor(randomcolor);
 					g.fillRect((i*handler.getWorld().GridPixelsize),
 							(j*handler.getWorld().GridPixelsize),
 							handler.getWorld().GridPixelsize,
 							handler.getWorld().GridPixelsize);
-		
+					
 				}
-				
-
+				if(handler.getWorld().appleLocation[i][j]){
+					g.setColor(Color.red);
+					g.fillRect((i*handler.getWorld().GridPixelsize),
+							(j*handler.getWorld().GridPixelsize),
+							handler.getWorld().GridPixelsize,
+							handler.getWorld().GridPixelsize);
+					
+				}
 
 			}
 
