@@ -31,8 +31,13 @@ public class Images {
 	public static BufferedImage[] BResume;
 	public static BufferedImage[] BResumeP;
 
-	//Screen Backfgrounds
+	//Screen Backgrounds
 	public static BufferedImage GameOver;
+	
+	//Apple Sprite
+	public static BufferedImage GoodApple;
+	public static BufferedImage RottenApple;
+	public static BufferedImage RainbowApple;
 	
 
 
@@ -84,6 +89,11 @@ public class Images {
 
 			//Added a new Game Over screen
 			GameOver = ImageIO.read(getClass().getResourceAsStream("/Sheets/GameOverScreen.png"));
+			
+			//Apple Sprites
+			GoodApple = ImageIO.read(getClass().getResourceAsStream("/Sheets/GoodAppleSprite.png"));
+			RottenApple = ImageIO.read(getClass().getResourceAsStream("/Sheets/RottenAppleSprite.png"));
+			RainbowApple = ImageIO.read(getClass().getResourceAsStream("/Sheets/RainbowAppleSprite.png"));
 
 		}catch (IOException e) {
 			e.printStackTrace();

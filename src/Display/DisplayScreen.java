@@ -35,7 +35,7 @@ public class DisplayScreen {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		frame.setBackground(Color.black);
-
+		
 
 		try {
 			frame.setIconImage(ImageIO.read(new File("res/Sheets/icon.png")));
@@ -50,8 +50,9 @@ public class DisplayScreen {
 		canvas.setFocusable(false);
 		//creating a new color variable called purple
 		Color Purple;
-		//Assigned Purple the RGB Value of Purple which is R=102, G=0, B=153
-		Purple = new Color(102,0,153);
+		//Purple RGB Values: R=102, G=0, B=153
+		//The color purple selected is a lavender purple, R=150, G=125, B=182
+		Purple = new Color(150,125,182);
 		//Set Background to Purple
 		canvas.setBackground(Purple);
 		frame.add(canvas);

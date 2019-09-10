@@ -1,6 +1,7 @@
 package Game.Entities.Dynamic;
 
 import Main.Handler;
+import Resources.Images;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -19,7 +20,7 @@ public class Player {
 
 	public int xCoord;
 	public int yCoord;
-	
+
 	public double rawScore = 0.0;
 	public int playerScore = 0;
 
@@ -66,7 +67,7 @@ public class Player {
 
 			handler.getWorld().body.addLast(new Tail(xCoord, yCoord,handler));
 		}
-		
+
 		//When Pressing Esc key the pause menu will appear
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
 			State.setState(handler.getGame().pauseState);
@@ -131,8 +132,8 @@ public class Player {
 			handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
 			handler.getWorld().body.removeLast();
 			handler.getWorld().body.addFirst(new Tail(x, y,handler));
-			
-		
+
+
 		}
 		//Collision Checker
 		for(int i =1; i < handler.getWorld().body.size(); i++) {
@@ -156,28 +157,30 @@ public class Player {
 		Random r = new Random();
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
-			
+
 				if(playeLocation[i][j]){
 					g.setColor(randomcolor);
 					g.fillRect((i*handler.getWorld().GridPixelsize),
 							(j*handler.getWorld().GridPixelsize),
 							handler.getWorld().GridPixelsize,
 							handler.getWorld().GridPixelsize);
-					
+
 				}
 				if(handler.getWorld().appleLocation[i][j]){
+
 					g.setColor(Color.red);
 					g.fillRect((i*handler.getWorld().GridPixelsize),
 							(j*handler.getWorld().GridPixelsize),
 							handler.getWorld().GridPixelsize,
 							handler.getWorld().GridPixelsize);
-					
+					g.drawImage(Images.GoodApple, ((i*handler.getWorld().GridPixelsize)-8),((j*handler.getWorld().GridPixelsize)-8),33, 33,null);
+
 				}
 
 			}
 
 		}
-	
+
 	}
 
 	public void Eat(){
@@ -297,12 +300,12 @@ public class Player {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
 
 				handler.getWorld().playerLocation[i][j]= false;
-				
+
 			}
 			State.setState(handler.getGame().gameoverState);//when the snake collides with it self it will appear the Game Over State
-			
+
 		}
-		
+
 	}
 
 	public boolean isJustAte() {
