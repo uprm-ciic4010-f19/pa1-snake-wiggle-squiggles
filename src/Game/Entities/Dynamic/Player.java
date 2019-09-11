@@ -237,6 +237,7 @@ public class Player {
 		if(appleCounter==5) {//when the player eats a special apple the score is doubled
 			superPower = true;
 			playerScore = 2*(playerScore + (int)rawScore);
+			appleCounter = 0;
 		}
 		else {
 			superPower = false;
