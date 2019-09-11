@@ -82,7 +82,7 @@ public class Player {
 			handler.getWorld().body.addLast(new Tail(xCoord, yCoord,handler));
 		}
 
-		//When Pressing Esc key the pause menu will appear
+		//When Pressing Esc key the Pause Menu will appear
 		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_ESCAPE)) {
 			State.setState(handler.getGame().pauseState);
 		}
@@ -155,7 +155,7 @@ public class Player {
 
 
 		}
-		//Collision Checker
+		//Body Collision Checker
 		for(int i =1; i < handler.getWorld().body.size(); i++) {
 			if(handler.getWorld().body.get(0).x == handler.getWorld().body.get(i).x
 					&& handler.getWorld().body.get(0).y == handler.getWorld().body.get(i).y) {
@@ -186,6 +186,7 @@ public class Player {
 							handler.getWorld().GridPixelsize);
 
 				}
+				//Implementing .isGood() Property
 				if(handler.getWorld().appleLocation[i][j]){
 
 					if(handler.getWorld().getApple().isGood()==false) {

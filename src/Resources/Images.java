@@ -18,6 +18,7 @@ public class Images {
 	public static BufferedImage[] BTitle;
 	public static BufferedImage[] Options;
 	public static ImageIcon icon;
+	public static ImageIcon WiggleSquiggleicon;
 
 	//Added buttons
 	public static BufferedImage[] BMenu; 
@@ -94,6 +95,9 @@ public class Images {
 			GoodApple = ImageIO.read(getClass().getResourceAsStream("/Sheets/GoodAppleSprite.png"));
 			RottenApple = ImageIO.read(getClass().getResourceAsStream("/Sheets/RottenAppleSprite.png"));
 			RainbowApple = ImageIO.read(getClass().getResourceAsStream("/Sheets/RainbowAppleSprite.png"));
+			
+			//GameIcon
+			WiggleSquiggleicon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/WigglesSquigglesIcon.png")));
 
 		}catch (IOException e) {
 			e.printStackTrace();

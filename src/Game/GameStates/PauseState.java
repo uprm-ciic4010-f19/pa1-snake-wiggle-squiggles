@@ -21,12 +21,13 @@ public class PauseState extends State {
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUimanager(uiManager);
 
-		uiManager.addObjects(new UIImageButton(450, 550, 250, 140, Images.BResume, () -> {// References the position and size of the button ( x, y , width, height)
+		// References the position and size of the button ( x, y , width, height, Image)
+		uiManager.addObjects(new UIImageButton(450, 550, 250, 140, Images.BResume, () -> {
 			handler.getMouseManager().setUimanager(null);
 			State.setState(handler.getGame().gameState);
 		}));
 
-		uiManager.addObjects(new UIImageButton(450, 550+(64+70), 250, 140, Images.BMenu, () -> { //Options
+		uiManager.addObjects(new UIImageButton(450, 550+(64+70), 250, 140, Images.BMenu, () -> { 
 			handler.getMouseManager().setUimanager(null);
 			State.setState(handler.getGame().menuState);
 		}));
@@ -57,11 +58,8 @@ public class PauseState extends State {
 
 	@Override
 	public void render(Graphics g) {
-		//g.drawImage(Images.Pause,0,0,800,600,null);
-		//uiManager.Render(g);
-
-		//This will make the Pause menu fill the whole game screen 
-		g.fillRect(0,0,handler.getWidth(),handler.getHeight());
+		
+		g.fillRect(0,0,handler.getWidth(),handler.getHeight());//This will make the Pause menu fill the whole game screen 
 		g.drawImage(Images.Pause,0,0,handler.getWidth(),handler.getHeight(),null);
 		uiManager.Render(g);
 

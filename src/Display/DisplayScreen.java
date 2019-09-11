@@ -38,7 +38,7 @@ public class DisplayScreen {
 		
 
 		try {
-			frame.setIconImage(ImageIO.read(new File("res/Sheets/icon.png")));
+			frame.setIconImage(ImageIO.read(new File("res/Sheets/WigglesSquigglesIcon.png")));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

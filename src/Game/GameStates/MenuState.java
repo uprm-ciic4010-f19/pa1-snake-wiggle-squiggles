@@ -24,8 +24,6 @@ public class MenuState extends State {
 
         uiManager.addObjects(new UIImageButton(450, 400, 300, 150, Images.BStart, new ClickListlener() {
             @Override
-            //handler.getWidth()/2-64
-           // handler.getHeight()/2-32
             
             public void onClick() { //click-on images  and do something code it also changes the images when the cursor is on top 
                 handler.getMouseManager().setUimanager(null);

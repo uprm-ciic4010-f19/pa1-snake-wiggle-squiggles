@@ -20,7 +20,8 @@ public class GameOverState extends State {
 		super(handler);
 		uiManager = new UIManager(handler);
 		handler.getMouseManager().setUimanager(uiManager);
-
+		
+		// References the position and size of the button ( x, y , width, height, Image)
 		uiManager.addObjects(new UIImageButton(850, 800, 200, 100, Images.BRestart, () -> {
 			handler.getMouseManager().setUimanager(null);
 			handler.getGame().reStart();
@@ -58,7 +59,7 @@ public class GameOverState extends State {
 
 	@Override
 	public void render(Graphics g) {
-		g.fillRect(0,0,handler.getWidth(),handler.getHeight());
+		g.fillRect(0,0,handler.getWidth(),handler.getHeight()); //This will make the Pause menu fill the whole game screen
 		g.drawImage(Images.GameOver,0,0,handler.getWidth(),handler.getHeight(),null);
 		uiManager.Render(g);
 	}
