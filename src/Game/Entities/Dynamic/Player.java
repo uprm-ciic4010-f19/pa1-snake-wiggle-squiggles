@@ -24,10 +24,15 @@ public class Player {
 	public double rawScore = 0.0;//calculates score then rounds it
 	public int playerScore = 0;//total score
 
+	public int appleCounter = 0;//counts amount of good apples the player has eaten
+
 	public int moveCounter;
 
 	public int stepCounter = 0;//initialized variable that monitors amount of steps of the player
 
+	//Additional feature
+	public boolean superPower = false;//creates a new apple that adds to the score
+	
 	//initializing speed variable 
 	public int speed;
 
@@ -50,7 +55,7 @@ public class Player {
 
 	public void tick(){
 
-		if(stepCounter == 120) {//if the player reaches 120 steps before eating an apple, then apple will be rotten
+		if(stepCounter == 100) {//if the player reaches 120 steps before eating an apple, then apple will be rotten
 			handler.getWorld().getApple().setGood(false);
 		}
 
@@ -140,6 +145,7 @@ public class Player {
 
 		if(handler.getWorld().appleLocation[xCoord][yCoord]){
 			Eat();
+			
 		}
 
 		if(!handler.getWorld().body.isEmpty()) {	
@@ -185,35 +191,60 @@ public class Player {
 					if(handler.getWorld().getApple().isGood()==false) {
 						//if the apple is rotten it will change the image and the color of the apple
 						g.setColor(Color.YELLOW);
+						g.fillRect((i*handler.getWorld().GridPixelsize),
+								(j*handler.getWorld().GridPixelsize),
+								handler.getWorld().GridPixelsize,
+								handler.getWorld().GridPixelsize);
+
+						g.drawImage(Images.RottenApple, ((i*handler.getWorld().GridPixelsize)-8),((j*handler.getWorld().GridPixelsize)-8),33, 33,null);
 					}
 
+					else if(superPower==true) {//checks to see if additional feature applies
+						g.setColor(Color.magenta);
+						g.fillRect((i*handler.getWorld().GridPixelsize),
+								(j*handler.getWorld().GridPixelsize),
+								handler.getWorld().GridPixelsize,
+								handler.getWorld().GridPixelsize);
+						g.drawImage(Images.RainbowApple, ((i*handler.getWorld().GridPixelsize)-8),((j*handler.getWorld().GridPixelsize)-8),33, 33,null);
+						appleCounter = 0;
+					}
+					
 					else {
-						g.setColor(Color.red);
+
+						g.fillRect((i*handler.getWorld().GridPixelsize),
+								(j*handler.getWorld().GridPixelsize),
+								handler.getWorld().GridPixelsize,
+								handler.getWorld().GridPixelsize);
+
+						g.drawImage(Images.GoodApple, ((i*handler.getWorld().GridPixelsize)-8),((j*handler.getWorld().GridPixelsize)-8),33, 33,null);
 					}
 
-					g.fillRect((i*handler.getWorld().GridPixelsize),
-							(j*handler.getWorld().GridPixelsize),
-							handler.getWorld().GridPixelsize,
-							handler.getWorld().GridPixelsize);
-					g.drawImage(Images.GoodApple, ((i*handler.getWorld().GridPixelsize)-8),((j*handler.getWorld().GridPixelsize)-8),33, 33,null);
+					
+
 
 				}
-
 			}
-
 		}
-
 	}
+
 
 	public void Eat(){
 		stepCounter = 0; //resets the stepCounter every time the player eats
 		handler.getWorld().appleLocation[xCoord][yCoord]=false;
 		handler.getWorld().appleOnBoard=false;
 		speed = speed - 1;//increases speed one by one every time the player eats
-		
-		
+		appleCounter++;
+		if(appleCounter==5) {//when the player eats a special apple the score is doubled
+			superPower = true;
+			playerScore = 2*(playerScore + (int)rawScore);
+		}
+		else {
+			superPower = false;
+		}
+
 		if(handler.getWorld().getApple().isGood()==false) {//checks to see if the apple is rotten
 			playerScore = playerScore - (int)rawScore;//Subtracts to the player if it eats a rotten apple
+			appleCounter = 0;//resets counter of good apples eaten to 0
 			if(playerScore < 0) {
 				playerScore = 0;//prevents score to go below 0 and become NAN
 			}
@@ -228,113 +259,114 @@ public class Player {
 			}
 		}
 		else {
-		handler.getWorld().getApple().setGood(true);//if the player eats it maintains the goodness true
-		rawScore = Math.round(Math.sqrt((2*playerScore) + 1));//calculates score then rounds it
-		playerScore = playerScore + (int)rawScore;
-		lenght++;
-		Tail tail= null;
+			
+			handler.getWorld().getApple().setGood(true);//if the player eats it maintains the goodness true
+			rawScore = Math.round(Math.sqrt((2*playerScore) + 1));//calculates score then rounds it
+			playerScore = playerScore + (int)rawScore;
+			lenght++;
+			Tail tail= null;
 
-		switch (direction){
-		case "Left":
-			if( handler.getWorld().body.isEmpty()){//checks if body is empty or not 
-				if(this.xCoord!=handler.getWorld().GridWidthHeightPixelCount-1){
-					tail = new Tail(this.xCoord+1,this.yCoord,handler);
+			switch (direction){
+			case "Left":
+				if( handler.getWorld().body.isEmpty()){//checks if body is empty or not 
+					if(this.xCoord!=handler.getWorld().GridWidthHeightPixelCount-1){
+						tail = new Tail(this.xCoord+1,this.yCoord,handler);
+					}else{
+						if(this.yCoord!=0){
+							tail = new Tail(this.xCoord,this.yCoord-1,handler);
+						}else{
+							tail =new Tail(this.xCoord,this.yCoord+1,handler);
+						}
+					}
+				}else{//when body is not empty
+					if(handler.getWorld().body.getLast().x!=handler.getWorld().GridWidthHeightPixelCount-1){
+						tail=new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler);
+					}else{
+						if(handler.getWorld().body.getLast().y!=0){
+							tail=new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler);
+						}else{
+							tail=new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler);
+
+						}
+					}
+
+				}
+				break;
+			case "Right":
+				if( handler.getWorld().body.isEmpty()){
+					if(this.xCoord!=0){
+						tail=new Tail(this.xCoord-1,this.yCoord,handler);
+					}else{
+						if(this.yCoord!=0){
+							tail=new Tail(this.xCoord,this.yCoord-1,handler);
+						}else{
+							tail=new Tail(this.xCoord,this.yCoord+1,handler);
+						}
+					}
 				}else{
+					if(handler.getWorld().body.getLast().x!=0){
+						tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
+					}else{
+						if(handler.getWorld().body.getLast().y!=0){
+							tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler));
+						}else{
+							tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler));
+						}
+					}
+
+				}
+				break;
+			case "Up":
+				if( handler.getWorld().body.isEmpty()){
+					if(this.yCoord!=handler.getWorld().GridWidthHeightPixelCount-1){
+						tail=(new Tail(this.xCoord,this.yCoord+1,handler));
+					}else{
+						if(this.xCoord!=0){
+							tail=(new Tail(this.xCoord-1,this.yCoord,handler));
+						}else{
+							tail=(new Tail(this.xCoord+1,this.yCoord,handler));
+						}
+					}
+				}else{
+					if(handler.getWorld().body.getLast().y!=handler.getWorld().GridWidthHeightPixelCount-1){
+						tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler));
+					}else{
+						if(handler.getWorld().body.getLast().x!=0){
+							tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
+						}else{
+							tail=(new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler));
+						}
+					}
+
+				}
+				break;
+			case "Down":
+				if( handler.getWorld().body.isEmpty()){
 					if(this.yCoord!=0){
-						tail = new Tail(this.xCoord,this.yCoord-1,handler);
+						tail=(new Tail(this.xCoord,this.yCoord-1,handler));
 					}else{
-						tail =new Tail(this.xCoord,this.yCoord+1,handler);
+						if(this.xCoord!=0){
+							tail=(new Tail(this.xCoord-1,this.yCoord,handler));
+						}else{
+							tail=(new Tail(this.xCoord+1,this.yCoord,handler));
+						} System.out.println("Tu biscochito");
 					}
-				}
-			}else{//when body is not empty
-				if(handler.getWorld().body.getLast().x!=handler.getWorld().GridWidthHeightPixelCount-1){
-					tail=new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler);
-				}else{
-					if(handler.getWorld().body.getLast().y!=0){
-						tail=new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler);
-					}else{
-						tail=new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler);
-
-					}
-				}
-
-			}
-			break;
-		case "Right":
-			if( handler.getWorld().body.isEmpty()){
-				if(this.xCoord!=0){
-					tail=new Tail(this.xCoord-1,this.yCoord,handler);
-				}else{
-					if(this.yCoord!=0){
-						tail=new Tail(this.xCoord,this.yCoord-1,handler);
-					}else{
-						tail=new Tail(this.xCoord,this.yCoord+1,handler);
-					}
-				}
-			}else{
-				if(handler.getWorld().body.getLast().x!=0){
-					tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
 				}else{
 					if(handler.getWorld().body.getLast().y!=0){
 						tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler));
 					}else{
-						tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler));
+						if(handler.getWorld().body.getLast().x!=0){
+							tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
+						}else{
+							tail=(new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler));
+						}
 					}
-				}
 
+				}
+				break;
 			}
-			break;
-		case "Up":
-			if( handler.getWorld().body.isEmpty()){
-				if(this.yCoord!=handler.getWorld().GridWidthHeightPixelCount-1){
-					tail=(new Tail(this.xCoord,this.yCoord+1,handler));
-				}else{
-					if(this.xCoord!=0){
-						tail=(new Tail(this.xCoord-1,this.yCoord,handler));
-					}else{
-						tail=(new Tail(this.xCoord+1,this.yCoord,handler));
-					}
-				}
-			}else{
-				if(handler.getWorld().body.getLast().y!=handler.getWorld().GridWidthHeightPixelCount-1){
-					tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord+1,handler));
-				}else{
-					if(handler.getWorld().body.getLast().x!=0){
-						tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
-					}else{
-						tail=(new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler));
-					}
-				}
-
-			}
-			break;
-		case "Down":
-			if( handler.getWorld().body.isEmpty()){
-				if(this.yCoord!=0){
-					tail=(new Tail(this.xCoord,this.yCoord-1,handler));
-				}else{
-					if(this.xCoord!=0){
-						tail=(new Tail(this.xCoord-1,this.yCoord,handler));
-					}else{
-						tail=(new Tail(this.xCoord+1,this.yCoord,handler));
-					} System.out.println("Tu biscochito");
-				}
-			}else{
-				if(handler.getWorld().body.getLast().y!=0){
-					tail=(new Tail(handler.getWorld().body.getLast().x,this.yCoord-1,handler));
-				}else{
-					if(handler.getWorld().body.getLast().x!=0){
-						tail=(new Tail(handler.getWorld().body.getLast().x-1,this.yCoord,handler));
-					}else{
-						tail=(new Tail(handler.getWorld().body.getLast().x+1,this.yCoord,handler));
-					}
-				}
-
-			}
-			break;
-		}
-		handler.getWorld().body.addLast(tail);//adds tail
-		handler.getWorld().playerLocation[tail.x][tail.y] = true;//acknowledge that there is a body there now
+			handler.getWorld().body.addLast(tail);//adds tail
+			handler.getWorld().playerLocation[tail.x][tail.y] = true;//acknowledge that there is a body there now
 		}
 	}
 

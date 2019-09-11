@@ -55,13 +55,13 @@ public abstract class WorldBase {
 	public void render(Graphics g){
 
 		for (int i = 0; i <= 1200; i = i + GridPixelsize) {
-
+//eliminates grid lines
 //		g.setColor(Color.white);
 //		g.drawLine(0, i, handler.getWidth() , i);
 //		g.drawLine(i,0,i,handler.getHeight());
-		String score = "Score:" + handler.getWorld().player.playerScore;
+		String score = "Score:" + handler.getWorld().player.playerScore;//display playerScore
 		g.setFont(new Font("Courier",Font.ITALIC, 45));	
-		g.setColor(Color.PINK);
+		g.setColor(Color.CYAN);
 		g.drawString(score, 20, 30);
 		}
 
