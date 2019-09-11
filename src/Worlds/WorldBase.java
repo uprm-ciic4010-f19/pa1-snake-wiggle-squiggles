@@ -68,5 +68,9 @@ public abstract class WorldBase {
 
 
 	}
+	
+	public Apple getApple(){ //Getter to access apple through world using handler 
+		return apple;
+	}
 
 }
