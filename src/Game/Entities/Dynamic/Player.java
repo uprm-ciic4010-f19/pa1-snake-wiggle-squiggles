@@ -21,15 +21,17 @@ public class Player {
 	public int xCoord;
 	public int yCoord;
 
-	public double rawScore = 0.0;
-	public int playerScore = 0;
+	public double rawScore = 0.0;//calculates score then rounds it
+	public int playerScore = 0;//total score
 
 	public int moveCounter;
+
+	public int stepCounter = 0;//initialized variable that monitors amount of steps of the player
 
 	//initializing speed variable 
 	public int speed;
 
-	public String direction;//is your first name one?
+	public String direction;
 
 	public Player(Handler handler){
 		this.handler = handler;
@@ -41,19 +43,25 @@ public class Player {
 		lenght= 1;
 
 		//Variable that will control the speed of the snake
-		speed = 10;
+		speed = 12;
 
 	}
 
 
 	public void tick(){
+
+		if(stepCounter == 120) {//if the player reaches 120 steps before eating an apple, then apple will be rotten
+			handler.getWorld().getApple().setGood(false);
+		}
+
 		moveCounter++;
-		if(moveCounter>=speed) {//changed speed to 4
+		if(moveCounter>=speed) { //moves the snake at x steps in one second
 			checkCollisionAndMove();
 			moveCounter=0;
 		}
-		//backtracking hint 
-		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)&& direction!= "Down"){// it has to go down so it doesnt go back into himself 
+
+		//Added conditions to prevent backtracking
+		if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_UP)&& direction!= "Down"){  
 			direction="Up";
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_DOWN)&& direction!= "Up"){
 			direction="Down";
@@ -62,7 +70,8 @@ public class Player {
 		}if(handler.getKeyManager().keyJustPressed(KeyEvent.VK_RIGHT)&& direction!= "Left"){
 			direction="Right";
 		}
-		//added key
+
+		//When pressing N key it adds a tail to the player
 		if (handler.getKeyManager().keyJustPressed(KeyEvent.VK_N)){
 
 			handler.getWorld().body.addLast(new Tail(xCoord, yCoord,handler));
@@ -92,7 +101,9 @@ public class Player {
 		int x = xCoord;
 		int y = yCoord;
 		switch (direction){
+		//Adds to the stepCounter every time a x or y coordinate changes
 		case "Left":
+			stepCounter++;
 			if(xCoord==0){
 				xCoord = handler.getWorld().GridWidthHeightPixelCount - 1;
 			}else{
@@ -100,6 +111,7 @@ public class Player {
 			}
 			break;
 		case "Right":
+			stepCounter++;
 			if(xCoord==handler.getWorld().GridWidthHeightPixelCount-1){
 				xCoord = 0;
 			}else{
@@ -107,6 +119,7 @@ public class Player {
 			}
 			break;
 		case "Up":
+			stepCounter++;
 			if(yCoord==0){
 				yCoord = handler.getWorld().GridWidthHeightPixelCount - 1;
 			}else{
@@ -114,6 +127,7 @@ public class Player {
 			}
 			break;
 		case "Down":
+			stepCounter++;
 			if(yCoord==handler.getWorld().GridWidthHeightPixelCount-1){
 				yCoord = 0;
 			}else{
@@ -159,7 +173,7 @@ public class Player {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
 
 				if(playeLocation[i][j]){
-					g.setColor(randomcolor);
+					g.setColor(randomcolor);//set the player color
 					g.fillRect((i*handler.getWorld().GridPixelsize),
 							(j*handler.getWorld().GridPixelsize),
 							handler.getWorld().GridPixelsize,
@@ -168,7 +182,15 @@ public class Player {
 				}
 				if(handler.getWorld().appleLocation[i][j]){
 
-					g.setColor(Color.red);
+					if(handler.getWorld().getApple().isGood()==false) {
+						//if the apple is rotten it will change the image and the color of the apple
+						g.setColor(Color.YELLOW);
+					}
+
+					else {
+						g.setColor(Color.red);
+					}
+
 					g.fillRect((i*handler.getWorld().GridPixelsize),
 							(j*handler.getWorld().GridPixelsize),
 							handler.getWorld().GridPixelsize,
@@ -184,13 +206,34 @@ public class Player {
 	}
 
 	public void Eat(){
-		speed = speed - 5;
-		rawScore = Math.floor(Math.sqrt((2*playerScore) + 1));
+		stepCounter = 0; //resets the stepCounter every time the player eats
+		handler.getWorld().appleLocation[xCoord][yCoord]=false;
+		handler.getWorld().appleOnBoard=false;
+		speed = speed - 1;//increases speed one by one every time the player eats
+		
+		
+		if(handler.getWorld().getApple().isGood()==false) {//checks to see if the apple is rotten
+			playerScore = playerScore - (int)rawScore;//Subtracts to the player if it eats a rotten apple
+			if(playerScore < 0) {
+				playerScore = 0;//prevents score to go below 0 and become NAN
+			}
+
+			if(lenght == 1) {
+				kill();//prevents negative tails, kills player if it hasn't eaten a good apple
+			}
+			else {
+				handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
+				handler.getWorld().body.removeLast();//removes a segment of the tail
+				lenght--;
+			}
+		}
+		else {
+		handler.getWorld().getApple().setGood(true);//if the player eats it maintains the goodness true
+		rawScore = Math.round(Math.sqrt((2*playerScore) + 1));//calculates score then rounds it
 		playerScore = playerScore + (int)rawScore;
 		lenght++;
 		Tail tail= null;
-		handler.getWorld().appleLocation[xCoord][yCoord]=false;
-		handler.getWorld().appleOnBoard=false;
+
 		switch (direction){
 		case "Left":
 			if( handler.getWorld().body.isEmpty()){//checks if body is empty or not 
@@ -292,6 +335,7 @@ public class Player {
 		}
 		handler.getWorld().body.addLast(tail);//adds tail
 		handler.getWorld().playerLocation[tail.x][tail.y] = true;//acknowledge that there is a body there now
+		}
 	}
 
 	public void kill(){
