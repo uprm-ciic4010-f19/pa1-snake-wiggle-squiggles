@@ -24,8 +24,7 @@ public class GameOverState extends State {
 		// References the position and size of the button ( x, y , width, height, Image)
 		uiManager.addObjects(new UIImageButton(850, 800, 200, 100, Images.BRestart, () -> {
 			handler.getMouseManager().setUimanager(null);
-			handler.getGame().reStart();
-			State.setState(handler.getGame().gameState);
+			State.setState(handler.getGame().chooseplayerState);
 		}));
 
 		uiManager.addObjects(new UIImageButton(850, 800+(64+20), 200, 100, Images.BMenu, () -> {

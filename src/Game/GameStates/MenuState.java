@@ -26,9 +26,8 @@ public class MenuState extends State {
             @Override
             
             public void onClick() { //click-on images  and do something code it also changes the images when the cursor is on top 
-                handler.getMouseManager().setUimanager(null);
-                handler.getGame().reStart(); //restarts game
-                State.setState(handler.getGame().gameState);//Change gameState to get another type of state 
+            	handler.getMouseManager().setUimanager(null);
+    			State.setState(handler.getGame().chooseplayerState);
             }
             
         }));
@@ -44,9 +43,7 @@ public class MenuState extends State {
         handler.getMouseManager().setUimanager(uiManager);
         uiManager.tick();
 
-    }
-
-    @Override
+    }    @Override
     public void render(Graphics g) {
         g.setColor(Color.darkGray);
         g.fillRect(0,0,handler.getWidth(),handler.getHeight());

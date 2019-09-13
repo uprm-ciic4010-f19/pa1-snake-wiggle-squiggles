@@ -2,6 +2,8 @@ package Resources;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -18,7 +20,6 @@ public class Images {
 	public static BufferedImage[] BTitle;
 	public static BufferedImage[] Options;
 	public static ImageIcon icon;
-	public static ImageIcon WiggleSquiggleicon;
 
 	//Added buttons
 	public static BufferedImage[] BMenu; 
@@ -31,14 +32,24 @@ public class Images {
 	public static BufferedImage[] BExitP;
 	public static BufferedImage[] BResume;
 	public static BufferedImage[] BResumeP;
+	
+	public static BufferedImage[] BWiggles;
+	public static BufferedImage[] BWigglesP;
+	public static BufferedImage[] BSquiggles;
+	public static BufferedImage[] BSquigglesP;
+	public static BufferedImage[] BBienve;
+	public static BufferedImage[] BBienveP;
 
 	//Screen Backgrounds
 	public static BufferedImage GameOver;
+	public static BufferedImage ChoosePlayer;
+	
 	
 	//Apple Sprite
 	public static BufferedImage GoodApple;
 	public static BufferedImage RottenApple;
 	public static BufferedImage RainbowApple;
+	//public static BufferedImage squigglesBody;
 	
 
 
@@ -55,7 +66,11 @@ public class Images {
 		BRestart = new BufferedImage[2];
 		BExit = new BufferedImage[2];
 		BResume = new BufferedImage[2];
-
+		
+		BWiggles = new BufferedImage[2];
+		BSquiggles = new BufferedImage[2];
+		BBienve = new BufferedImage[2];
+		
 
 		try {
 
@@ -88,16 +103,24 @@ public class Images {
 			BResume[0] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BResume.png"));
 			BResume[1] = ImageIO.read(getClass().getResourceAsStream("/Buttons/BResumeP.png"));
 
+			BWiggles[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/BWiggles.png"));
+			BWiggles[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/BWigglesP.png"));
+
+			BSquiggles[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/BSquiggles.png"));
+			BSquiggles[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/BSquigglesP.png"));
+
+			BBienve[0] = ImageIO.read(getClass().getResourceAsStream("/Sheets/BBienve.png"));
+			BBienve[1] = ImageIO.read(getClass().getResourceAsStream("/Sheets/BBienveP.png"));
+
 			//Added a new Game Over screen
 			GameOver = ImageIO.read(getClass().getResourceAsStream("/Sheets/GameOverScreen.png"));
 			
+			ChoosePlayer = ImageIO.read(getClass().getResourceAsStream("/Sheets/ChoosePlayer.png"));
 			//Apple Sprites
 			GoodApple = ImageIO.read(getClass().getResourceAsStream("/Sheets/GoodAppleSprite.png"));
 			RottenApple = ImageIO.read(getClass().getResourceAsStream("/Sheets/RottenAppleSprite.png"));
 			RainbowApple = ImageIO.read(getClass().getResourceAsStream("/Sheets/RainbowAppleSprite.png"));
-			
-			//GameIcon
-			WiggleSquiggleicon =  new ImageIcon(ImageIO.read(getClass().getResourceAsStream("/Sheets/WigglesSquigglesIcon.png")));
+//			squigglesBody = ImageIO.read(getClass().getResourceAsStream("/Sheets/squigglesBodySprite.png"));
 
 		}catch (IOException e) {
 			e.printStackTrace();

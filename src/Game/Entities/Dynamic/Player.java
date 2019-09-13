@@ -27,6 +27,8 @@ public class Player {
 	public int appleCounter = 0;//counts amount of good apples the player has eaten
 
 	public int moveCounter;
+	
+	public int choosedPlayer;
 
 	public int stepCounter = 0;//initialized variable that monitors amount of steps of the player
 
@@ -173,17 +175,33 @@ public class Player {
 		int G = (int)(Math.random()*256);
 		int B= (int)(Math.random()*256);
 		Color randomcolor = new Color(R, G, B);
-
-		Random r = new Random();
+		Color wigglescolor = new Color(201, 255, 229);
+		Color squigglescolor = new Color(124,185,232);
 		for (int i = 0; i < handler.getWorld().GridWidthHeightPixelCount; i++) {
 			for (int j = 0; j < handler.getWorld().GridWidthHeightPixelCount; j++) {
 
 				if(playeLocation[i][j]){
+					if(choosedPlayer == 1) {
+						g.setColor(wigglescolor);//set the player color
+						g.fillRect((i*handler.getWorld().GridPixelsize),
+								(j*handler.getWorld().GridPixelsize),
+								handler.getWorld().GridPixelsize,
+								handler.getWorld().GridPixelsize);	
+					}
+					else if(choosedPlayer == 2) {
+						g.setColor(squigglescolor);//set the player color
+						g.fillRect((i*handler.getWorld().GridPixelsize),
+								(j*handler.getWorld().GridPixelsize),
+								handler.getWorld().GridPixelsize,
+								handler.getWorld().GridPixelsize);	
+					}
+					else {
 					g.setColor(randomcolor);//set the player color
 					g.fillRect((i*handler.getWorld().GridPixelsize),
 							(j*handler.getWorld().GridPixelsize),
 							handler.getWorld().GridPixelsize,
 							handler.getWorld().GridPixelsize);
+					}
 
 				}
 				//Implementing .isGood() Property
@@ -196,8 +214,8 @@ public class Player {
 								(j*handler.getWorld().GridPixelsize),
 								handler.getWorld().GridPixelsize,
 								handler.getWorld().GridPixelsize);
-
 						g.drawImage(Images.RottenApple, ((i*handler.getWorld().GridPixelsize)-8),((j*handler.getWorld().GridPixelsize)-8),33, 33,null);
+						appleCounter = 0;
 					}
 
 					else if(superPower==true) {//checks to see if additional feature applies
@@ -253,6 +271,7 @@ public class Player {
 
 			if(lenght == 1) {
 				kill();//prevents negative tails, kills player if it hasn't eaten a good apple
+			
 			}
 			else {
 				handler.getWorld().playerLocation[handler.getWorld().body.getLast().x][handler.getWorld().body.getLast().y] = false;
